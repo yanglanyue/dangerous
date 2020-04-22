@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--bean的scope属性配置其作用域
+    prototype：原型，每次只要创建bean的时候都创建一个全新的bean，并且只初始化spring容器的时候bean不会被初始化！
+    singleton：单例，默认值。在整个容器生命周期内只创建这一个bean，并且只初始化spring容器的时候bean也会被初始化！
+    -->
+    <bean id="car" class="com.example.springdemo002.entities.Car"
+        scope="prototype">
+        <property name="brand" value="Honda"></property>
+        <property name="model" value="NSX"></property>
+        <property name="maxSpeed" value="380"></property>
+    </bean>
+</beans>

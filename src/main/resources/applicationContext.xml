@@ -1,0 +1,193 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd ">
+
+    <bean id="hello" class="com.example.springdemo002.entities.hello">
+        <property name="name" value="dangerous"></property>
+    </bean>
+
+    <!--Car-->
+    <bean id="car0" class="com.example.springdemo002.entities.Car">
+        <!--<property name="brand" value="BENZ"></property>-->
+        <!--<property name="Model" value="SLS"></property>-->
+        <!--<property name="maxSpeed" value="260"></property>-->
+        <constructor-arg value="BENZ"></constructor-arg>
+        <constructor-arg value="SLS"></constructor-arg>
+        <constructor-arg value="260"></constructor-arg>
+    </bean>
+    <bean id="car1" class="com.example.springdemo002.entities.Car">
+        <property name="brand" value="BMW"></property>
+        <property name="Model" value="M6"></property>
+        <property name="maxSpeed" value="280"></property>
+    </bean>
+    <bean id="car2" class="com.example.springdemo002.entities.Car">
+        <property name="brand" value="NISSAN"></property>
+        <property name="Model" value="GTR"></property>
+        <property name="maxSpeed" value="315"></property>
+    </bean>
+    <bean id="car3" class="com.example.springdemo002.entities.Car">
+        <property name="brand" value="Porsche"></property>
+        <property name="Model" value="911"></property>
+        <property name="maxSpeed" value="310"></property>
+    </bean>
+    <!--构造器配置bean-->
+    <bean id="car4" class="com.example.springdemo002.entities.Car">
+        <constructor-arg value="Ferrari"></constructor-arg>
+        <constructor-arg value="FF"></constructor-arg>
+        <constructor-arg value="335"></constructor-arg>
+    </bean>
+
+    <!--Person-->
+
+    <bean id="person1" class="com.example.springdemo002.entities.person">
+        <property name="name" value="Mike"></property>
+        <property name="age" value="27"></property>
+        <property name="gender" value="MAN"></property>
+        <property name="car" >
+            <ref bean="car1"></ref>
+        </property>
+        <property name="spouse">
+            <!--内部bean不能被引用，运行时会报错-->
+            <bean id="person4" class="com.example.springdemo002.entities.person">
+                <property name="name" value="Kaylar"></property>
+                <property name="age" value="24"></property>
+                <property name="gender" value="LADY"></property>
+                <property name="car" ref="car3"></property>
+                <property name="car.model" value="918"></property>
+                <property name="car.maxSpeed" value="380"></property>
+            </bean>
+        </property>
+    </bean>
+    <bean id="person2" class="com.example.springdemo002.entities.person">
+        <property name="name" value="Bob"></property>
+        <property name="age" value="35"></property>
+        <property name="gender" value="MAN"></property>
+        <property name="car" ref="car4"></property>
+        <property name="spouse" >
+            <bean class="com.example.springdemo002.entities.person">
+                <constructor-arg value="金夏惠子"></constructor-arg>
+                <constructor-arg value="24"></constructor-arg>
+                <constructor-arg value="LADY"></constructor-arg>
+                <constructor-arg ref="car3"></constructor-arg>
+                <property name="car.model" value="718"></property>
+                <property name="car.maxSpeed" value="285"></property>
+            </bean>
+        </property>
+    </bean>
+
+
+    <!--集合-->
+    <bean id="car00" class="comlist.example.springdemo.Car">
+        <constructor-arg value="Honda"></constructor-arg>
+        <constructor-arg value="NSX"></constructor-arg>
+        <constructor-arg value="390"></constructor-arg>
+    </bean>
+    <bean id="car11" class="comlist.example.springdemo.Car">
+        <constructor-arg value="Audi"></constructor-arg>
+        <constructor-arg value="R8"></constructor-arg>
+        <constructor-arg value="380"></constructor-arg>
+    </bean>
+    <bean id="car22" class="comlist.example.springdemo.Car">
+        <constructor-arg value="Lamborghini"></constructor-arg>
+        <constructor-arg value="REVENTON"></constructor-arg>
+        <constructor-arg value="420"></constructor-arg>
+    </bean>
+    <bean id="person6" class="comlist.example.springdemo.person">
+        <property name="name" value="Danger"></property>
+        <property name="age" value="35"></property>
+        <property name="gender" value="MAN"></property>
+        <property name="carList" >
+            <list>
+                <ref bean="car00"/>
+                <ref bean="car11"/>
+                <ref bean="car22"/>
+                <bean class="comlist.example.springdemo.Car">
+                    <constructor-arg value="Koenigsegg"></constructor-arg>
+                    <constructor-arg value="CCXR"></constructor-arg>
+                    <constructor-arg value="440"></constructor-arg>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <!--配置Map属性值-->
+    <bean id="lady1" class="comlist.example.springdemo.lady" >
+        <property name="name" value="Lucy"></property>
+        <property name="age" value="22"></property>
+        <property name="gender" value="Lady"></property>
+        <property name="car">
+            <map>
+                <entry key="car1" value-ref="car11"></entry>
+                <entry key="car2" value-ref="car22"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <!--配置Properties属性值-->
+    <bean id="p0" class="comlist.example.springdemo.DataSource">
+        <property name="properties">
+            <props>
+                <prop key="user">root</prop>
+                <prop key="password">password</prop>
+                <prop key="jdbcUrl">jdbc:mysql:///test</prop>
+                <prop key="Driver">com.mysql.Driver</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--配置独立的集合bean，供多个bean引用，需要导入util命名空间-->
+    <util:list id="carlist00">
+        <ref bean="car00"/>
+        <ref bean="car11"/>
+        <ref bean="car22"/>
+    </util:list>
+    <bean id="person00" class="comlist.example.springdemo.person">
+        <property name="name" value="Jims"></property>
+        <property name="age" value="53"></property>
+        <property name="gender" value="Man"></property>
+        <property name="carList" ref="carlist00"></property>
+    </bean>
+
+    <!--通过P的命名空间为bean的属性赋值-->
+    <bean id="personP" class="comlist.example.springdemo.person"
+          p:name="Jack"
+          p:age="32"
+          p:gender="Man"
+          p:carList-ref="carlist00">
+    </bean>
+
+
+    <!--尚硅谷-17-spring前置通知============================================================================================-->
+    <context:component-scan base-package="com.example.springdemo002.AOP.Impl" ></context:component-scan>
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+
+    <!--尚硅谷-22-spring基于配置文件============================================================================================-->
+    <!--配置bean-->
+    <bean id="arithmeticCalculator" class="com.example.springdemo002.AOP.xml.ArithmeticCalculatorImpl" ></bean>
+    <!--配置切面bean-->
+    <bean id="loggingAspect" class="com.example.springdemo002.AOP.xml.loggingAspect" ></bean>
+    <!--配置AOP-->
+    <aop:config>
+        <!--配置切点表达式-->
+        <aop:pointcut id="pointcut"
+                      expression="execution(* com.example.springdemo002.AOP.xml.ArithmeticCalculatorImpl.*(int,int))"></aop:pointcut>
+        <!--配置切面和通知-->
+        <aop:aspect ref="loggingAspect" order="2">
+            <aop:before method="beforeMethod" pointcut-ref="pointcut"></aop:before>
+            <aop:after-throwing method="afterThrowing" pointcut-ref="pointcut" throwing="ex"></aop:after-throwing>
+            <aop:after-returning method="afterReturning" pointcut-ref="pointcut" returning="result"></aop:after-returning>
+            <!--环绕通知-->
+            <aop:around method="aroundMethod" pointcut-ref="pointcut" ></aop:around>
+        </aop:aspect>
+    </aop:config>
+
+</beans>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--bean的初始化和销毁-->
+    <bean id="car" class="com.example.springdemo002.cycle.Car"
+        init-method="init"
+        destroy-method="destroy">
+        <property name="brand" value="BMW"></property>
+    </bean>
+
+    <!--实现BeanPostProcessor接口
+    并具体提供以下两个方法的实现：
+    postProcessBeforeInitialization(Object bean, String beanName)：init-method之前调用
+    postProcessAfterInitialization(Object bean, String beanName)：init-method之后调用
+
+    可在这两个方法中从定义return的内容，甚至实现其他功能
+    -->
+    <!--配置bean的后置处理器，无需配置id，IOC容器自动识别-->
+    <bean class="com.example.springdemo002.cycle.MyBeanPostProcessor"></bean>
+
+</beans>

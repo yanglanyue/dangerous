@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="address" class="comB.example.springdemo.autowire.Address"
+    p:city="ShangHai"
+    p:street="OneStreet"></bean>
+
+    <bean id="car" class="com.example.springdemo002.entities.Car"
+    p:brand="BMW"
+    p:model="760"
+    p:maxSpeed="280"></bean>
+<!--autowire自动装配
+byName根据bean的id名字和当前bean的setter方法名进行自动装配
+byType根据bean的类型和当前bean的属性的类型进行自动装配,若IOC容器中有两个或以上同时匹配的bean则会出现异常
+
+-->
+    <bean id="personA" class="comB.example.springdemo.autowire.person"
+    p:name="Jack"
+    autowire="byType"></bean>
+
+</beans>

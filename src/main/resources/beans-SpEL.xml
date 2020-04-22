@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="address" class="com.example.springdemo002.SpEL.Address">
+        <!--用SpEL为属性赋一个字面值-->
+        <property name="city" value="#{'BeiJing'}"></property>
+        <property name="street" value="OneStreet"></property>
+    </bean>
+    
+    <bean id="car" class="com.example.springdemo002.SpEL.Car">
+        <property name="brand" value="BMW"></property>
+        <property name="model" value="M6"></property>
+        <property name="maxSpeed" value="320"></property>
+        <!--用SpEL引用类的静态属性-->
+        <property name="tyrePemimeter" value="#{T(java.lang.Math).PI * 80}"></property>
+    </bean>
+    
+    <bean id="person" class="com.example.springdemo002.SpEL.person">
+        <!--用SpEL引用其他bean-->
+        <property name="car" value="#{car}"></property>
+        <!--用SpEL引用其他bean的属性-->
+        <property name="city" value="#{address.city}"></property>
+        <!--在SpEL使用判断-->
+        <property name="info" value="#{car.brand == 'Honda' ? '屌丝':'高富帅'}"></property>
+    </bean>
+
+</beans>

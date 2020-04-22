@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--尚硅谷13集-->
+
+    <!--指定spring IOC容器扫描的包-->
+    <!--可以通过resource-pattern="repository/*.class"指定只扫描某些包下的资源-->
+    <!--<context:component-scan -->
+            <!--base-package="com.example.springdemo002.annotation" -->
+            <!--resource-pattern="repository/*.class"></context:component-scan>-->
+
+    <context:component-scan
+            base-package="com.example.springdemo002.annotation"
+            >
+        <!--context:exclude-filter：排除组件
+        type="annotation"：以注解的形式
+        expression="org.springframework.stereotype.Repository"：具体含有指定注解的bean
+        -->
+        <!--
+        <context:exclude-filter
+                type="annotation"
+                expression="org.springframework.stereotype.Repository"></context:exclude-filter>
+                -->
+
+        <!--context:include-filter：只包含组件
+        要实现此功能必须在<context:component-scan>中指定use-default-filters="false"属性，关闭系统默认扫描的所有组件
+        -->
+        <context:include-filter
+                type="annotation"
+                expression="org.springframework.stereotype.Repository"></context:include-filter>
+
+        <!--================================================================================================================-->
+
+        <!--将实现指定接口的组件排除-->
+        <!--<context:exclude-filter-->
+                <!--type="assignable"-->
+                <!--expression="com.example.springdemo002.annotation.repository.UserRepository"></context:exclude-filter>-->
+
+        <!--将只实现指定接口的组件添加
+        要实现此功能必须在<context:component-scan>中指定use-default-filters="false"属性，关闭系统默认扫描的所有组件
+        -->
+        <!--<context:include-filter-->
+                <!--type="assignable"-->
+                <!--expression="com.example.springdemo002.annotation.repository.UserRepository"></context:include-filter>-->
+    </context:component-scan>
+
+</beans>
