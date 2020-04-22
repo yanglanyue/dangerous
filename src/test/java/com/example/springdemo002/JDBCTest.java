@@ -1,10 +1,13 @@
 package com.example.springdemo002;
 
 
+import com.example.springdemo002.jdbc.ProTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -23,6 +26,44 @@ public class JDBCTest {
         jdbcTemplate = (JdbcTemplate) ac.getBean("jdbcTemplate");
     }
 
+    /*
+     * 查询单个列的值
+     * */
+    @Test
+    public void testQueryForObject2(){
+        String sql = "select count(生产日期) from pro_test;";
+        Long count = jdbcTemplate.queryForObject(sql,Long.class);
+
+        System.out.println(count);
+    }
+
+    /*
+    * 查询实体类的集合
+    * */
+    @Test
+    public void testQueryForList(){
+        String sql = "select 商品ID from pro_test where 商品ID > ?;";
+        RowMapper<ProTest> rowMapper = new BeanPropertyRowMapper<>(ProTest.class);
+        List<ProTest> proTests = jdbcTemplate.query(sql,rowMapper,34);
+
+        System.out.println(proTests);
+    }
+
+    /*
+    * 从数据库中获取一条记录，得到对应的对象，类似ORM框架
+    * 注意：不是调用jdbcTemplate.queryForObject(sql,ProTest.class,"1");方法
+    * */
+    @Test
+    public void testQueryForObject(){
+        String sql = "select * from pro_test where 商品ID = ?;";
+        RowMapper<ProTest> rowMapper = new BeanPropertyRowMapper<>(ProTest.class);
+        ProTest proTest = jdbcTemplate.queryForObject(sql,rowMapper,"1");
+        System.out.println(proTest);
+    }
+    /*
+    * 执行批量更新
+    * 最后一个参数是Object[] 的List类型
+    * */
     @Test
     public void testBatchUpdate(){
         String sql = "insert into pro_test(商品ID, 商品名, 商品数量) values(?,?,?);";
@@ -35,7 +76,7 @@ public class JDBCTest {
         batchArgs.add(new Object[]{39,"B&O H1",20});
         batchArgs.add(new Object[]{40,"B&O H6",20});
 
-        jdbcTemplate.update(sql,"RX8",720000,35);
+        jdbcTemplate.batchUpdate(sql,batchArgs);
     }
 
     @Test
