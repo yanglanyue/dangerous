@@ -16,6 +16,7 @@ public class JDBCTest {
 
     private ApplicationContext ac = null;
     private JdbcTemplate jdbcTemplate;
+    public int a;
 
     {
         ac = new ClassPathXmlApplicationContext("beans-properties.xml");
