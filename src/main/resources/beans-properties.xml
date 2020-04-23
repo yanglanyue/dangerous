@@ -33,4 +33,7 @@
         <!--<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1/a?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=UTC"></property>-->
     <!--</bean>-->
 
+    <!--尚硅谷-23-使用JDBCTemplate-33:00-为测试类配置Dao层-->
+    <context:component-scan base-package="com.example.springdemo002.AOP.Impl,com.example.springdemo002.jdbc" ></context:component-scan>
+
 </beans>

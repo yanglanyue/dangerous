@@ -2,6 +2,8 @@ package com.example.springdemo002;
 
 
 import com.example.springdemo002.jdbc.ProTest;
+import com.example.springdemo002.jdbc.ProTestDao;
+import com.example.springdemo002.jdbc.ProTestDao2;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -19,11 +21,26 @@ public class JDBCTest {
 
     private ApplicationContext ac = null;
     private JdbcTemplate jdbcTemplate;
-    public int a;
+    private ProTestDao proTestDao;
+    private ProTestDao2 proTestDao2;
 
     {
         ac = new ClassPathXmlApplicationContext("beans-properties.xml");
         jdbcTemplate = (JdbcTemplate) ac.getBean("jdbcTemplate");
+        proTestDao = ac.getBean(ProTestDao.class);
+        proTestDao2 = ac.getBean(ProTestDao2.class);
+    }
+
+//    不推荐继承JdbcDaoSupport方式，推荐使用JdbcTemplate作为Dao类的成员变量
+//    JdbcTemplate方式
+    @Test
+    public void testProTestDao(){
+        System.out.println(proTestDao.get(1));
+    }
+//    JdbcDaoSupport方式
+    @Test
+    public void testProTestDao2(){
+        System.out.println(proTestDao2.get(1));
     }
 
     /*

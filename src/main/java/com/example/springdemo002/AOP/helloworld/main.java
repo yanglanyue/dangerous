@@ -16,6 +16,5 @@ public class main {
         result = proxy.div(43,1);
         System.out.println("-->" + result);
 
-
     }
 }
