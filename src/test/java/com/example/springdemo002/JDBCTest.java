@@ -10,11 +10,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class JDBCTest {
@@ -23,21 +28,55 @@ public class JDBCTest {
     private JdbcTemplate jdbcTemplate;
     private ProTestDao proTestDao;
     private ProTestDao2 proTestDao2;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     {
         ac = new ClassPathXmlApplicationContext("beans-properties.xml");
         jdbcTemplate = (JdbcTemplate) ac.getBean("jdbcTemplate");
         proTestDao = ac.getBean(ProTestDao.class);
         proTestDao2 = ac.getBean(ProTestDao2.class);
+        namedParameterJdbcTemplate = ac.getBean(NamedParameterJdbcTemplate.class);
+    }
+
+
+    //尚硅谷-24-使用NamedParameterJdbcTemplate，该对象可以使用具名参数，可以对参数起名字
+    //方法一
+    @Test
+    public void testNamedParameterJdbcTemplate(){
+        String sql = "insert into pro_test(商品ID, 商品名, 商品数量) values(:a,:b,:c);";
+        Map<String,Object> paramMap = new HashMap<>();
+        paramMap.put("a","100");
+        paramMap.put("b","iPad Pro 2020");
+        paramMap.put("c","30");
+
+        namedParameterJdbcTemplate.update(sql,paramMap);
+    }
+    /*
+    * 方法二
+    * SQL语句中的参数名和类的属性名一致
+    * 使用SqlParameterSource接口的实现类BeanPropertySqlParameterSource(proTest)
+    * */
+    @Test
+    public void testNamedParameterJdbcTemplate2(){
+        String sql = "insert into pro_test(商品ID, 商品名, 商品价格, 供应商, 商品数量) values(:商品ID,:商品名,:商品价格,:供应商,:商品数量);";
+        ProTest proTest = new ProTest();
+        proTest.set商品ID(102);
+        proTest.set商品名("iphone SE");
+        proTest.set商品价格(3298);
+        proTest.set供应商("苹果公司");
+        proTest.set商品数量(100);
+
+        SqlParameterSource sqlParameterSource = new BeanPropertySqlParameterSource(proTest);
+        namedParameterJdbcTemplate.update(sql,sqlParameterSource);
     }
 
 //    不推荐继承JdbcDaoSupport方式，推荐使用JdbcTemplate作为Dao类的成员变量
-//    JdbcTemplate方式
+//    JdbcTemplate方式（jdbc包下的ProTestDao）
     @Test
     public void testProTestDao(){
         System.out.println(proTestDao.get(1));
     }
-//    JdbcDaoSupport方式
+//    JdbcDaoSupport方式（jdbc包下的ProTestDao2）
     @Test
     public void testProTestDao2(){
         System.out.println(proTestDao2.get(1));

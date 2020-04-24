@@ -36,4 +36,10 @@
     <!--尚硅谷-23-使用JDBCTemplate-33:00-为测试类配置Dao层-->
     <context:component-scan base-package="com.example.springdemo002.AOP.Impl,com.example.springdemo002.jdbc" ></context:component-scan>
 
+    <!--尚硅谷-24-使用NamedParameterJdbcTemplate，该对象可以使用具名参数============================================================================================-->
+    <!--必须配置带参数的构造器-->
+    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
+    </bean>
+
 </beans>
