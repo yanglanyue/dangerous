@@ -42,6 +42,19 @@ public class GoodsDaoImpl implements GoodsDao {
     }
 
     @Override
+    public void updateGoodsStockSubtract2(String GN) {
+        //先查看库存是否足够，若不够则抛出异常
+        String sql0 = "select 商品数量 from pro_test where 商品名 = ?;";
+        int 商品数量 = jdbcTemplate.queryForObject(sql0,Integer.class,GN);
+        if(商品数量 < 0){
+            throw new GoodsException("库存不足");
+        }
+
+        String sql = "update pro_test set 商品数量 = 商品数量 - 1 where 商品名 = ?;";
+        jdbcTemplate.update(sql,GN);
+    }
+
+    @Override
     public void updateUserAccountPlus(double price,String name) {
         String sql = "update reader set balance = balance + ? where name = ?;";
         jdbcTemplate.update(sql,price,name);

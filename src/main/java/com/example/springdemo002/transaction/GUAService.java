@@ -1,7 +1,6 @@
 package com.example.springdemo002.transaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +10,7 @@ public class GUAService implements GoodsUserAccountService {
     @Autowired
     private GoodsDao goodsDao;
 
-//    尚硅谷-26-声明式事物，添加事物误解
+//    尚硅谷-26-声明式事物，添加事物注解
     @Transactional
     @Override
     public void purchase(String name, String GN, int number) {

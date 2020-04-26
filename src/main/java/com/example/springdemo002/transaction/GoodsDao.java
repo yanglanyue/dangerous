@@ -14,6 +14,8 @@ public interface GoodsDao {
     //根据商品名减少商品库存
     public void updateGoodsStockSubtract(int number,String GN);
 
+    public void updateGoodsStockSubtract2(String GN);
+
     //更新用户余额
     public void updateUserAccountPlus(double price,String name);
 
