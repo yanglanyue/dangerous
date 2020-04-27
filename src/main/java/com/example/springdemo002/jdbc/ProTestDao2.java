@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 @Repository
 public class ProTestDao2 extends JdbcDaoSupport {
 
-    //一下错误不用管
+    //以下错误不用管
     @Autowired
     public void setDataSource2(DataSource dataSource){
         setDataSource(dataSource);

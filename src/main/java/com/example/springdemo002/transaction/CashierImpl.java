@@ -10,13 +10,13 @@ import java.util.List;
 public class CashierImpl implements Cashier {
 
     @Autowired
-    private GUAService guaService = null;
+    private GoodsUserAccountServiceImpl goodsUserAccountService = null;
 
     @Transactional
     @Override
     public void checkout(String name, List<String> GNs,int i) {
         for (String GN:GNs){
-            guaService.purchase(name,GN,i);
+            goodsUserAccountService.purchase(name,GN,i);
         }
     }
 }
