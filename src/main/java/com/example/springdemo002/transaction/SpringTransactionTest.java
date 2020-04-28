@@ -26,7 +26,7 @@ public class SpringTransactionTest {
     //    尚硅谷-27-事务的传播
     @Test
     public void testTransactionPropagation(){
-        cashier.checkout("张学友", Arrays.asList("PS4","PS4 Pro"),1);
+        cashier.checkout("马化腾", Arrays.asList("PS4","PS4 Pro"),5);
     }
 
 //    尚硅谷-25、26-事务相关
