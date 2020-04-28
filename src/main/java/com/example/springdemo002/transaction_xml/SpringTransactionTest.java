@@ -1,13 +1,12 @@
-package com.example.springdemo002.transaction;
+package com.example.springdemo002.transaction_xml;
 
+import com.example.springdemo002.transaction_xml.service.Cashier;
+import com.example.springdemo002.transaction_xml.impl.GoodsUserAccountServiceImpl;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Arrays;
-
-import static org.aspectj.bridge.MessageUtil.fail;
 
 public class SpringTransactionTest {
 
@@ -17,19 +16,17 @@ public class SpringTransactionTest {
     private Cashier cashier = null;
 
     {
-        ac = new ClassPathXmlApplicationContext("beans-properties.xml");
+        ac = new ClassPathXmlApplicationContext("beans-transaction-xml.xml");
         goodsDao = ac.getBean(GoodsDaoImpl.class);
         guaService = ac.getBean(GoodsUserAccountServiceImpl.class);
         cashier = ac.getBean(Cashier.class);
     }
 
-    //    尚硅谷-27-事务的传播
     @Test
     public void testTransactionPropagation(){
         cashier.checkout("张学友", Arrays.asList("PS4","PS4 Pro"),1);
     }
 
-//    尚硅谷-25、26-事务相关
     @Test
     public void userBuyGoods(){
         guaService.purchase("王思聪","AirPods",2);

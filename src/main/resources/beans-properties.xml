@@ -11,7 +11,7 @@
 
     <!--导入属性文件-->
     <context:property-placeholder location="classpath:mysql.properties"/>
-    <!--指向属性文件-->
+    <!--配置C3P0数据源-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="user" value="${jdbc.user}"></property>
         <property name="password" value="${jdbc.password}"></property>
@@ -52,9 +52,6 @@
 
     <!--启用事务注解（切记加入此属性proxy-target-class="true"！！！！！！！！！！！！！！！！！！！！）-->
     <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
-
-    <!-- 2. 配置事务属性 -->
-    <!--<tx:advice id="txAdvice" transaction-manager="transactionManager"/>-->
 
 
 </beans>

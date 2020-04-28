@@ -178,8 +178,7 @@
     <!--配置AOP-->
     <aop:config>
         <!--配置切点表达式-->
-        <aop:pointcut id="pointcut"
-                      expression="execution(* com.example.springdemo002.AOP.xml.ArithmeticCalculatorImpl.*(int,int))"></aop:pointcut>
+        <aop:pointcut id="pointcut" expression="execution(* com.example.springdemo002.AOP.xml.ArithmeticCalculatorImpl.*(int,int))"></aop:pointcut>
         <!--配置切面和通知-->
         <aop:aspect ref="loggingAspect" order="2">
             <aop:before method="beforeMethod" pointcut-ref="pointcut"></aop:before>
