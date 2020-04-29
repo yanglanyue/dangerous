@@ -32,7 +32,7 @@ public class GoodsUserAccountServiceImpl implements GoodsUserAccountService {
     @Transactional(
             propagation = Propagation.REQUIRES_NEW,
             isolation = Isolation.READ_COMMITTED,
-            readOnly = true,
+//            readOnly = true,
             timeout = 2
                     )
     @Override
